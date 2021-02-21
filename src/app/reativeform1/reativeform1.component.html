@@ -1,0 +1,24 @@
+<form (ngsubmit)="login()" [formGroup]="loginForm">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" formControlName="email" class="form-control">
+      <div id="emailHelp" class="form-text">Please enter a valid email id </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1"  class="form-label">Password</label>
+      <input formControlName="password" type="password" class="form-control" required id="exampleInputPassword1">
+    
+      <span class="text-red" [hidden]="!loginForm.get('password').errors?.required && !loginForm.get('password').touched">Password is requried</span>
+      <span class="red" [hidden]="!loginForm.get('password').errors?.minlength && !loginForm.get('password').touched">Minlength 4 char</span>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" formControlName="rememberMe" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1" >Check me out</label>
+    </div>
+    <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Submit</button>
+    <button class="btn btn-info ml-2" (click)="setAll()">Set Value</button>
+    <button class="btn btn-info ml-2" (click)="patchval()">Patch value</button>
+  </form>
+  <h2>Login Form:  {{loginForm.value |  json }}</h2>
+  <h2>Valid:  {{loginForm.valid }}</h2>
+  <h2>loginForm.password.dirty:  {{loginForm.get('password').dirty}}</h2>

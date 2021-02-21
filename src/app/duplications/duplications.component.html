@@ -1,0 +1,71 @@
+<form [formGroup]="duplicateform">
+    <div class="row">
+        <div class="right"> <button type="button" class="btn btn-primary" (click)="addAddress()">Add</button>
+        </div>
+    </div>
+    <div formArrayName="addresses" *ngFor="let item of getAddresses().controls; let i=index">
+        <div [formGroupName]="i">
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Duplicate Form controls</h3>
+                </div>
+                <div class="container mt-3">
+                    <label>Address Type</label>
+                    <div class="form-check form-check-inline ml-3">
+                        <input class="form-check-input" type="radio" formControlName="addresstype" id="{{home + i}}"
+                            value="home">
+                        <label class="form-check-label" for="inlineRadio1">Home</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" formControlName="addresstype" value="office"
+                            id="{{office + i}}">
+                        <label class="form-check-label" for="inlineRadio2">Office</label>
+                    </div>
+                </div>
+
+
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-md-2 mt-2">
+                            <label for="exampleFormControlSelect1">Street, City and State</label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" formControlName="street" id="{{street + i}}"
+                                        placeholder="Street">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" formControlName="City" placeholder="City"
+                                        id="{{City + i}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control" formControlName="selectedstate">
+                                    <option [value]="state.id" *ngFor="let state of states">{{state.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <button type="button" [disabled]="!duplicateform.get('addresses.'+i)?.valid" class="btn btn-danger" (click)="removeAddress(i)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-1">
+                    <span>{{duplicateform.get('addresses').value[i] | json}}</span>
+                    <span>{{duplicateform.get('addresses.'+i)?.valid | json}}</span>
+                    <span>{{i}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
